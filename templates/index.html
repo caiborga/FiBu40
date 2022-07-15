@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Home</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+      
+   </head>
+   <body>
+      <div class="header">
+      </div>
+      <div class="sidenav">
+         <div class="abstand">
+            <img src="{{ url_for('static', filename='pictures/excel.png') }}" style="width: 80px;" background = "transparent" class="center">
+         </div>
+         <a href="#">Anlagevermögen</a>
+         <a href="#">Betriebswirtschaftliche Auswertung</a>
+         <a href="/buchungen/0">Buchhaltung</a>
+         <a href="#">Offene Posten Liste</a>
+         <a href="#">Steuern</a>
+      </div>
+      <div class="main">
+         <p>Hello</p>
+      </div>
+   </body>
+</html>

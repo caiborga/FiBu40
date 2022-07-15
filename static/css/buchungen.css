@@ -1,0 +1,110 @@
+.header {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 40px;
+    background: #8bb9e2;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+
+/* The sidebar menu */
+.abstand{
+    height: 80px;
+    width: 160px;
+}
+
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #8bb9e2; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: black;
+    display: block;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .main {
+    margin-top: 60px;
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+table{
+    border-collapse: collapse;
+    margin-top: 40px;
+    border: 2px solid;
+    width:100%;
+    table-layout: fixed;
+    overflow-wrap: break-word;
+ }
+
+ th{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+    font-size: 13px;
+    border: 2px solid;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ }
+
+ td{
+    font-size: 14px;
+    border: 1px solid;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ }
+
+ tr:nth-child(even) {
+    background-color: white;
+ }
+ tr:nth-child(odd) {
+    background-color: #a9c3dc;
+ }
+
+ input{
+    width: 80px;
+ }
+
+.mbgreen{
+  background-color: lightgreen; 
+  text-align: center;
+  animation: fadeOut ease 8s;
+}
+.mbred{
+  background-color: rosybrown; 
+  text-align: center;
+  animation: fadeOut ease 8s;
+}
+ 

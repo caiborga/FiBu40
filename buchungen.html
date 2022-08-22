@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Buchungen</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   </head>
+   <body>
+      <div class="header">
+         <h1 class="header-text-buchhaltung">Buchungen</h1>
+      </div>
+      <div class="sidenav">
+         <div class="logobox">
+            <img src="{{ url_for('static', filename='pictures/logo.png') }}" width="40px">
+         </div>
+         <a id="sidenav-buchungen" href="/buchungen/0"><b>Buchhaltung</b></a>
+         <a id="sidenav-bwa" href="/bwa"><b>BWA</b></a>
+         <a id="sidenav-config" href="/config/0"><b>Konfiguration</b></a>
+         <a id="sidenav-item" href="/offen/"><b>Offene Posten</b></a>
+      </div>
+      <div class="main">
+         <h2>Übersicht</h2>
+            <table class="table-buchungen">
+               <thead>
+                  <tr height="25px">
+                     <th class="th-buchungen">Position</th>
+                     <th class="th-buchungen">Rechnungs-<br />datum</th>
+                     <th class="th-buchungen">Zahlungs-<br />eingang / ausgang</th>
+                     <th class="th-buchungen">Brutto</th>
+                     <th class="th-buchungen">USt-Schlüssel</th>
+                     <th class="th-buchungen">Belegnummer</th>
+                     <th class="th-buchungen">Buchungstext</th>
+                     <th class="th-buchungen">KST</th>
+                     <th class="th-buchungen">Interne Belegnummer</th>
+                     <th class="th-buchungen">Position Bezeichnung</th>
+                     <th class="th-buchungen">Netto</th>
+                     <th class="th-buchungen">USt-Betrag</th>
+                     <th class="th-buchungen">Stornieren / Editieren</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for data in buchungen %}
+               <form action="/edit/{{data.id}}" method="POST">
+                  <tr height="25px">
+                     <td class="td-buchungen"><input class="input-buchung" type="text" name="position" value="{{data.position}}"></td>
+                     <td class="td-buchungen"><input class="input-buchung" type="text" name="rechnungsdatum" value="{{data.rechnungsdatum.strftime('%d.%m.%Y')}}"></td>
+                     <td class="td-buchungen">
+                        {% if data.zahlungseingang == None: %}
+                           <input class="input-buchung" type="text" name="zahlungseingang" value="">
+                        {% else %}
+                           <input class="input-buchung" type="text" name="zahlungseingang" value="{{data.zahlungseingang.strftime('%d.%m.%Y')}}">
+                        {% endif %}
+                     </td>
+                     <td class="td-buchungen"><input class="input-buchung" style="text-align: right" type="text" name="brutto" value="{{'%.2f €'|format(data.brutto)}}"></td>
+                     <td class="td-buchungen"><input class="input-buchung" type="text" name="ust_key" value="{{data.ust_key}}"></td>
+                     <td class="td-buchungen"><input class="input-buchung" type="text" name="belegnummer" title="{{data.belegnummer}}" value="{{data.belegnummer}}"></td>
+                     <td class="td-buchungen"><input class="input-buchung" type="text" name="buchungstext" title="{{data.buchungstext}}" value="{{data.buchungstext[0:8]}}"></td>
+                     <td class="td-buchungen"><input class="input-buchung" type="text" name="kst" value="{{data.kst}}"></td>
+                     <td class="td-buchungen" name="interne_belegnummer">{{data.interne_belegnummer}}</td>
+                     <td class="td-buchungen" name="pos_bezeichnung" title="{{data.pos_bezeichnung}}">{{data.pos_bezeichnung[0:8]}}</td>
+                     <td class="td-buchungen" style="text-align: right" name="netto">{{"%.2f €"|format(data.netto)}}</td>
+                     <td class="td-buchungen" style="text-align: right" name="ust">{{"%.2f €"|format(data.ust)}}</td>
+                     <td class="td-buchungen">
+                        <a href="/delete/{{data.id}}/0" class="td-a" type="button"></a>
+                        <input type="image" src="/static/pictures/edit.png" style="width:13px;height:auto;">
+                     </td>
+                  </tr>
+               </form>
+               {% endfor%}
+         <form action="/add" method="POST">
+                  <tr height="40px">
+                     <td class="td-buchungen">
+                        <input list="positionen" name="ilposition" id="ilposition" placeholder="Position...">
+                        <datalist id="positionen" name="dlposition">
+                           {% for data in positionen %}
+                              <option value={{data.position}}>{{data.position}} - {{data.bezeichnung}}</option>
+                           {% endfor%}
+                        </datalist>      
+                     </td>
+                     <td class="td-buchungen"><input type="text" name="rechnungsdatum" placeholder="Rechnungsdatum..."></td>
+                     <td class="td-buchungen"><input type="text" name="zahlungseingang" placeholder="Zahlungseingang..."></td>
+                     <td class="td-buchungen"><input type="text" name="brutto" placeholder="Bruttobetrag..."></td>
+                     <td class="td-buchungen">
+                        <input list="ustkeys" name="ilust" id="ilust" placeholder="Umsatzsteuerschlüssel...">
+                        <datalist id="ustkeys" name="dlust">
+                           {% for data in ustkeys %}
+                              <option value="{{data.code}}">{{data.code}} - {{data.bezeichnung}}</option>
+                           {% endfor%}
+                        </datalist>      
+                     </td>
+                     <td class="td-buchungen"><input type="text" name="belegnummer" placeholder="Belegnummer..."></td>
+                     <td class="td-buchungen"><input type="text" name="buchungstext" placeholder="Buchungstext..."></td>
+                     <td class="td-buchungen"><input type="text" name="kst" placeholder="KST..."></td>
+                     <td class="td-buchungen"></td>
+                     <td class="td-buchungen"></td>
+                     <td class="td-buchungen"></td>
+                     <td class="td-buchungen"></td>
+                     <td class="td-buchungen"><input type="image" src="/static/pictures/plus.png" style="width:13px;height:auto;"></td>
+                  </tr>
+               </tbody>
+            </table>
+         </form>
+      </div>
+   </body>
+   <footer>
+      <div class={{box}}>
+         <p id="message">{{message}}</p>
+      </div>
+   </footer>
+</html>

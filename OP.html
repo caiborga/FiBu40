@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Offene Posten Liste</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   </head>
+   <body>
+      <div class="header">
+         <h1 class="header-text-item">Offene Posten Liste</h1>
+      </div>
+      <div class="sidenav">
+         <div class="logobox">
+            <img src="{{ url_for('static', filename='pictures/logo.png') }}" width="40px">
+         </div>
+         <a id="sidenav-buchungen" href="/buchungen/0"><b>Buchhaltung</b></a>
+         <a id="sidenav-bwa" href="/bwa"><b>BWA</b></a>
+         <a id="sidenav-config" href="/config/0"><b>Konfiguration</b></a>
+         <a id="sidenav-item" href="/offen/"><b>Offene Posten</b></a>
+      </div>
+      <div class="main">
+         <h2>Unbezahlte Rechnungen</h2>
+            <table class="table-config-position">
+               <thead>
+                  <tr height="30px">
+                     <th>Position</th>
+                     <th>Rechnung</th>
+                     <th>Rechnungsdatum</th>
+                     <th>Überfällig (Tage)</th>
+                     <th>Betrag</th>
+                     <th>Buchungstext</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% if not posten %}
+                  table empty
+               {% endif %}
+                  {% for data in posten %}
+                     <tr height="30px">
+                        <td width="5%">{{data[0]}}</td>
+                        <td width="10%">{{data[1]}}</td>
+                        <td width="10%">{{data[3].strftime('%d.%m.%Y')}}</td><!-- Rechnungsdatum -->
+                        <td width="10%" style="color: {{data[6]}}"><b>{{data[5]}}</b></td>
+                        <td width="10%" style="text-align: right">{{"%.2f €"|format(data[2])}}</td>
+                        <td width="55%">{{data[4]}}</td> 
+                     </tr>
+                  {% endfor%}
+               </tbody>
+            </table>
+         </form>
+      </div>
+   </body>
+   <footer>
+      <div class={{box}}>
+         <p id="message">Offener Betrag: {{"%.2f €"|format(summe)}}</p>
+      </div>
+  </footer>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Dokumentation</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   </head>
+   <body>
+      <div class="header">
+         <h1 class="header-text">Dokumentation</h1>
+      </div>
+      <div class="sidenav">   
+         <div class="logobox">
+            <img src="{{ url_for('static', filename='pictures/logo.png') }}" width="40px">
+         </div>  
+         <a id="sidenav-buchungen" href="/buchungen/0"><b>Buchhaltung</b></a>
+         <a id="sidenav-bwa" href="/bwa"><b>BWA</b></a>
+         <a id="sidenav-config" href="/config/0"><b>Konfiguration</b></a>
+         <a id="sidenav-item" href="/offen/"><b>Offene Posten</b></a>
+      </div>
+      <div class="main">
+         <h2>Erläuterungen der einzelen Funktionen</h2>
+         <div class="absatz">
+            <details>
+               <summary><b>Buchhaltung - Erfassung aller Buchungsvorgänge</b></summary>
+               <p>Auf dieser Seite werden alle Geschäftsvorfälle verbucht und in einer Datenbank gespeichert. Einträge können beliebig verändert werden. In Planung 
+                  ist eine Funktion zur "Festschreibung" von Buchungssätzen, damit die Datensätze <a href="https://de.wikipedia.org/wiki/Grunds%C3%A4tze_ordnungsm%C3%A4%C3%9Figer_Buchf%C3%BChrung">GOB-konform</a> nach Ablauf einer Buchungs-Periode (zB nach Versand einer Umsatzsteuer-Voranmeldung) nicht mehr änderbar sind. 
+                  Das Entfernen eines Eintrags ist nicht möglich. Die Eintragung kann lediglich durch eine Umkehrbuchung storniert werden, damit jede Änderung im Nachhinein nachvollziehbar ist. Die Eingaben werden mittels RegExp Prüfung erfasst, um die Einheitlichkeit der Eingaben zu gewährleisten und für Stabilität im Umgang mit 
+                  der Applikation zu sorgen.</p>
+            </details>
+         </div>
+         <div class="absatz">
+            <details>
+               <summary><b>BWA - Betriebswirtschaftliche Auswertung</b></summary>
+               <p>In dieser Übersicht werden die erfassten Buchungen nach Positionen bzw. Konten gegliedert und das jeweilige Ergebnis ausgegeben. Zeitraum und Monat können 
+                  beliebig gewählt werden und sind über die URL bestimmbar.</p>
+               <p>Beispiele:</p>
+               <br />
+               <ul>
+                  <li><a href="/bwa/2022/ytd">/bwa/2022/ytd</a> - Übersicht ab dem 01.01.2022 bis zum heutigen Datum</li>
+                  <li><a href="/bwa/2022/Q1">/bwa/2022/Q1</a> - Übersicht des ersten Quartals 2022</li>
+                  <li><a href="/bwa/2022/Januar">/bwa/2022/Januar</a> - Übersicht Januar 2022</li>
+                  <li><a href="/bwa/2022-03-15/2022-06-13">/bwa/2022-03-15/2022-06-13</a> - Übersicht im Zeitraum 15.03.2022 bis 13.06.2022</li>
+               </ul>
+            </details>
+         </div>
+         <div class="absatz">
+            <details>
+               <summary><b>Konfiguration - Positionen/Konten und Umsatzsteuerschlüssel</b></summary>
+               <p>Auf dieser Seite werden die Positionen und Umsatzsteuerschlüssel verwaltet. Positionen und Schlüssel dürfen nur einmal vorkommen. Die Eingaben werden mittels
+                  RegExp überprüft.</p>
+            </details>
+         </div>
+         <div class="absatz">
+            <details>
+               <summary><b>Offene Posten - Wer hat nicht bezahlt?</b></summary>
+               <p>In dieser Liste finden sich alle Buchungen wieder, die als Einnahmen klassifiziert wurden und noch unbeglichen sind (Buchungen ohne Zahlungseingang
+                  oder -ausgang weisen in der entsprechenden Spalte kein Datum auf). Des Wetiteren wird die Überschreitung des Zahlungsziels in Tagen ermittelt.</p>
+            </details>
+         </div>
+      </div>
+   </body>
+</html>

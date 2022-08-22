@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Betriebswirtschaftliche Auswertung</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <div class="header">
+            <h1 class="header-text-bwa">Betriebswirtschaftliche Auswertung</h1>
+        </div>
+        <div class="sidenav">
+            <div class="logobox">
+                <img src="{{ url_for('static', filename='pictures/logo.png') }}" width="40px">
+            </div>
+            <a id="sidenav-buchungen" href="/buchungen/0"><b>Buchhaltung</b></a>
+            <a id="sidenav-bwa" href="/bwa"><b>BWA</b></a>
+            <a id="sidenav-config" href="/config/0"><b>Konfiguration</b></a>
+            <a id="sidenav-item" href="/offen/"><b>Offene Posten</b></a>
+        </div>
+        <div class="main">
+            <div class="zeitraum">
+                <form action="/updatebwa" method="POST">
+                    <span class="span-bwa-title">Zeitraum:</span>
+                    <input type="date" class="date-picker" name="von" value="{{von.strftime('%Y-%m-%d')}}" width="130px" float="left">
+                    <span class="span-bwa-bis">bis</span>
+                    <input type="date" class="date-picker" name="bis" value="{{bis.strftime('%Y-%m-%d')}}" width="130px">
+                    <span class="span-bwa-bis"><input type="image" src="/static/pictures/lupe.png" style="width:15px;height:auto;"></span>
+                </form>
+                <form action="/updatebwa" method="POST">      
+                    <label for="Monat"><span class="span-bwa-title">Monat:</span></label>
+                    <select class="date-picker" name="bis" id="months">
+                        <option value="Januar">Januar</option>
+                        <option value="Februar">Februar</option>
+                        <option value="März">März</option>
+                        <option value="April">April</option>
+                        <option value="Mai">Mai</option>
+                        <option value="Juni">Juni</option>
+                        <option value="Juli">Juli</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="Oktober">Oktober</option>
+                        <option value="November">November</option>
+                        <option value="Dezember">Dezember</option>
+                    </select>
+                    <span class="span-bwa-bis"> </span>
+                    <select class="date-picker" name="von" id="jahr">
+                    {% for counter in range(9) %}
+                        <option value={{aktuelles_jahr-counter}}>{{aktuelles_jahr-counter}}</option>
+                    {% endfor %}
+                    </select>
+                    <span class="span-bwa-bis"><input type="image" src="/static/pictures/lupe.png" style="width:15px;height:auto;"></span>
+                </form>
+            </div>
+            <h2>Einnahmen</h2>
+            <table class = "table-bwa">
+                <tbody>
+                    {% for data in einnahmen %}
+                    <tr height="30px">
+                        <td width="10%" style="text-align: center">{{data[0]}}</td>
+                        <td width="70%">{{data[1]}}</td>
+                        <td width="18%" style="text-align: right">{{"%.2f €"|format(data[2])}}</td>
+                        <td width="2%"></td>
+                    </tr>
+                    {% endfor %}
+                    <tr height="30px">
+                        <td class="td-bwa-einnahme" style="text-align: center">Summe:</td>
+                        <td class="td-bwa-einnahme"></td>
+                        <td class="td-bwa-einnahme">{{"%.2f €"|format(summe_einnahmen)}}</td>
+                        <td class="td-bwa-einnahme"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Ausgaben</h2>
+            <table class = "table-bwa">
+                <tbody>
+                    {% for data in ausgaben %}
+                    <tr height="30px">
+                        <td width="10%" style="text-align: center">{{data[0]}}</td>
+                        <td width="70%">{{data[1]}}</td>
+                        <td width="18%" style="text-align: right">{{"%.2f €"|format(data[2])}}</td>
+                        <td width="2%"></td>
+                    </tr>
+                    {% endfor %}
+                    <tr height="30px">
+                        <td class="td-bwa-ausgabe" style="text-align: center">Summe:</td>
+                        <td class="td-bwa-ausgabe"></td>
+                        <td class="td-bwa-ausgabe">{{"%.2f €"|format(summe_ausgaben)}}</td>
+                        <td class="td-bwa-ausgabe"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <footer>
+        <div class={{box}}>
+           <p id="message">{{GewVerText}}: {{"%.2f €"|format(GewVerSumme)}}</p>
+        </div>
+    </footer>
+</html>

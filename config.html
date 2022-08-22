@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Config</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+   </head>
+   <body>
+      <div class="header">
+         <h1 class="header-text-config">Konfiguration</h1>
+      </div>
+      <div class="sidenav">
+         <div class="logobox">
+            <img src="{{ url_for('static', filename='pictures/logo.png') }}" width="40px">
+         </div>
+         <a id="sidenav-buchungen" href="/buchungen/0"><b>Buchhaltung</b></a>
+         <a id="sidenav-bwa" href="/bwa"><b>BWA</b></a>
+         <a id="sidenav-config" href="/config/0"><b>Konfiguration</b></a>
+         <a id="sidenav-item" href="/offen/"><b>Offene Posten</b></a>
+      </div>
+      <div class="main">
+         <form action="/add_position" method="POST">
+            <h2>Positionen</h2>
+            <table class="table-config-position">
+               <thead>
+                  <tr height="30px">
+                     <th>Position</th>
+                     <th>Einnahme / Ausgabe</th>
+                     <th>Kategorie</th>
+                     <th style="text-align: left">Bezeichnung</th>
+                     <th>Löschen</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for data in positionen %}
+                  <tr height="30px">
+                     <td width="10%">{{data.position}}</td>
+                     <td width="10%">
+                        {% if data.einaus == 1: %}
+                           Einnahmen
+                        {% else %}
+                           Ausgaben
+                        {% endif %}
+                     </td>
+                     <td width="10%" title="{{data.kategorie}}">{{data.kategorie[0:10]}}</td>
+                     <td width="60%" style="text-align: left" title="{{data.bezeichnung}}">{{data.bezeichnung[0:80]}}</td>
+                     <td width="10%"><a href="/delete/{{data.id}}/1" class="td-a" type="button"></a></td>
+                  </tr>
+               {% endfor%}
+                  <tr height="30px">
+                     <td><input type="text" name="position" placeholder="Position..."></td>
+                     <td>
+                        <select name="einaus" id="einaus">
+                           <option value="1">Einnahmen</option>
+                           <option value="0">Ausgabe</option>
+                        </select>
+                     </td>
+                     <td><input type="text" name="kategorie" placeholder="Kategorie..."></td>
+                     <td><input type="text" name="position_bezeichnung" placeholder="Bezeichnung..."></td>
+                     <td><input type="image" src="/static/pictures/plus.png" style="width:13px;height:auto;"></td>
+                  </tr>
+               </tbody>
+            </table>
+         </form>
+
+         <form action="/add_ust" method="POST">
+            <h2>Umsatzsteuerschlüssel</h2>
+            <table class="table-config-ust">
+               <thead>
+                  <tr height="30px">
+                     <th>Code</th>
+                     <th>USt-Satz</th>
+                     <th style="text-align: left">Beschreibung</th>
+                     <th>Löschen</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for data in ust_keys %}
+                  <tr height="30px">
+                     <td width="15%">{{data.code}}</td>
+                     <td width="15%">{{data.ust}}</td>
+                     <td width="60%" style="text-align: left">{{data.bezeichnung}}</td>
+                     <td width="10%"><a href="/delete/{{data.id}}/2" class="td-a" type="button"></a></td>
+                  </tr>
+               {% endfor%}
+                  <tr height="30px">
+                     <td><input type="text" name="code" placeholder="Code..."></td>
+                     <td><input type="text" name="ust" placeholder="USt-Satz..."></td>
+                     <td><input type="text" name="ust_bezeichnung" placeholder="Bezeichnung..."></td>
+                     <td><input type="image" src="/static/pictures/plus.png" style="width:13px;height:auto;"></td>
+                  </tr>
+               </tbody>
+            </table>
+         </form>
+      </div>
+   </body>
+   <footer>
+      <div class={{box}}>
+         <p id="message">{{message}}</p>
+      </div>
+   </footer>
+</html>
